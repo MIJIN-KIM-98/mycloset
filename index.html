@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>mycloset</title>
+    <link rel=" shortcut icon" href="image/favicon.ico">
+
+    <link rel="stylesheet" href="vendor/css/fullcalendar.min.css" />
+    <link rel="stylesheet" href="vendor/css/bootstrap.min.css">
+    <link rel="stylesheet" href='vendor/css/select2.min.css' />
+    <link rel="stylesheet" href='vendor/css/bootstrap-datetimepicker.min.css' />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body>
+    <div id="image" style="width:35%; height:840px; float:right; z-index: 2;" >
+      <center><img src="" width="100%" height="100%" alt="클릭된 일정의 이미지가 표시됩니다." style="margin-top: 100px; margin-bottom: 1000px;"></center>
+    </div>
+    <div class="container" style="width:60%; float:left; z-index: 1;">
+        <!-- 일자 클릭시 메뉴오픈 -->
+        <div id="contextMenu" class="dropdown clearfix">
+            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
+                style="display:block;position:static;margin-bottom:5px;">
+                <li><a tabindex="-1" href="#">추움</a></li>
+                <li><a tabindex="-1" href="#">적당함</a></li>
+                <li><a tabindex="-1" href="#">더움</a></li>
+                <!-- <li><a tabindex="-1" href="#">카테고리4</a></li> -->
+                <li class="divider"></li>
+                <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
+            </ul>
+        </div>
+
+        <div id="wrapper">
+          <div class="row">
+           지금 <span id="city"></span>의 기온은 <span id="temp"></span> 입니다.
+           <button type="button" onclick="location.href='https://www.kweather.co.kr/kma/kma_past.html?' ">지난 날씨보기</button>
+           <button class="forecast">날씨 7일간 예보보기</button>
+           <div class="modal" id="forecast_modal">
+               <div class="modal_content" id="forecast_content" title="클릭하면 창이 닫힙니다.">
+                    <table align="center">
+                      <thead>
+                        <tr>
+                          <td><B>날짜</B></td>
+                          <td><B>아침 온도</B></td>
+                          <td><B>낮 온도</B></td>
+                          <td><B>오후 온도</B></td>
+                          <td><B>밤 온도</B></td>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                    </table>
+               </div>
+           </div>
+
+
+          </div>
+            <div id="loading"></div>
+            <div id="calendar"></div>
+        </div>
+
+      <form enctype="multipart/form-data" method="post" name="fileinfo" id="fileinfo" class="fileinfo">
+        <!-- 일정 추가 MODAL -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label class="col-xs-4" for="edit-allDay">하루종일</label>
+                                <input class='allDayNewEvent' id="edit-allDay" name="edit-allDay" type="checkbox"></label>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="col-xs-12">
+                                <label class="col-xs-4" for="edit-title">기온</label>
+                                <input class="inputModal" type="text" name="edit-title" id="edit-title"
+                                    required="required" />
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label class="col-xs-4" for="edit-title">기온</label>
+                                <select class="inputModal" name="edit-title" id="edit-title">
+                                  <option value="기온0">-5 °C</option>
+                                  <option value="기온0">-4 °C</option>
+                                  <option value="기온0">-3 °C</option>
+                                  <option value="기온0">-2 °C</option>
+                                  <option value="기온0">-1 °C</option>
+                                  <option value="기온0">0 °C</option>
+                                  <option value="기온1">1 °C</option>
+                                  <option value="기온2">2 °C</option>
+                                  <option value="기온3">3 °C</option>
+                                  <option value="기온4">4 °C</option>
+                                  <option value="기온5">5 °C</option>
+                                  <option value="기온6">6 °C</option>
+                                  <option value="기온7">7 °C</option>
+                                  <option value="기온8">8 °C</option>
+                                  <option value="기온9">9 °C</option>
+                                  <option value="기온10">10 °C</option>
+                                  <option value="기온11">11 °C</option>
+                                  <option value="기온12">12 °C</option>
+                                  <option value="기온13">13 °C</option>
+                                  <option value="기온14">14 °C</option>
+                                  <option value="기온15">15 °C</option>
+                                  <option value="기온16">16 °C</option>
+                                  <option value="기온17">17 °C</option>
+                                  <option value="기온18">18 °C</option>
+                                  <option value="기온19">19 °C</option>
+                                  <option value="기온20">20 °C</option>
+                                  <option value="기온21">21 °C</option>
+                                  <option value="기온22">22 °C</option>
+                                  <option value="기온23">23 °C</option>
+                                  <option value="기온24">24 °C</option>
+                                  <option value="기온25">25 °C</option>
+                                  <option value="기온26">26 °C</option>
+                                  <option value="기온27">27 °C</option>
+                                  <option value="기온28">28 °C</option>
+                                  <option value="기온29">29 °C</option>
+                                  <option value="기온30">30 °C</option>
+                                  <option value="기온30">31 °C</option>
+                                  <option value="기온30">32 °C</option>
+                                  <option value="기온30">33 °C</option>
+                                  <option value="기온30">34 °C</option>
+                                  <option value="기온30">35 °C</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label class="col-xs-4" for="edit-start">시작</label>
+                                <input class="inputModal" type="text" name="edit-start" id="edit-start" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label class="col-xs-4" for="edit-end">끝</label>
+                                <input class="inputModal" type="text" name="edit-end" id="edit-end" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label class="col-xs-4" for="edit-type">구분</label>
+                                <select class="inputModal" type="text" name="edit-type" id="edit-type">
+                                    <option value="추움">추움</option>
+                                    <option value="적당함">적당함</option>
+                                    <option value="더움">더움</option>
+                                    <!-- <option value="카테고리4">카테고리4</option> -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label class="col-xs-4" for="edit-color">색상</label>
+                                <select class="inputModal" name="color" id="edit-color">
+                                    <option value="#D25565" style="color:#D25565;">빨간색</option>
+                                    <option value="#9775fa" style="color:#9775fa;">보라색</option>
+                                    <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
+                                    <option value="#74c0fc" style="color:#74c0fc;">파란색</option>
+                                    <option value="#f06595" style="color:#f06595;">핑크색</option>
+                                    <option value="#63e6be" style="color:#63e6be;">연두색</option>
+                                    <option value="#a9e34b" style="color:#a9e34b;">초록색</option>
+                                    <option value="#4d638c" style="color:#4d638c;">남색</option>
+                                    <option value="#495057" style="color:#495057;">검정색</option>
+                                    <option value="#ffffff" style="color:#000000;">흰색</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label class="col-xs-4" for="edit-desc">설명</label>
+                                <!-- <textarea rows="4" cols="50" class="inputModal" name="edit-desc"
+                                    id="edit-desc"></textarea> -->
+                                    <input type="file" name="edit-desc" class="inputModal" value="" id="edit-desc">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer modalBtnContainer-addEvent">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-primary" id="save-event">저장</button>
+                    </div>
+                    <div class="modal-footer modalBtnContainer-modifyEvent">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
+                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
+                    </div>
+                </div><!-- /.modal-content -->
+
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </form>
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">필터</h3>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="col-lg-6">
+                    <label for="calendar_view">구분별</label>
+                    <div class="input-group">
+                        <select class="filter" id="type_filter" multiple="multiple">
+                            <option value="추움">추움</option>
+                            <option value="적당함">적당함</option>
+                            <option value="더움">더움</option>
+                            <!-- <option value="카테고리4">카테고리4</option> -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <label for="calendar_view">기온별</label>
+                    <div class="input-group">
+                      <select class="filter" id="temp_filter" multiple="multiple">
+                        <option value="기온0">-5 °C</option>
+                        <option value="기온0">-4 °C</option>
+                        <option value="기온0">-3 °C</option>
+                        <option value="기온0">-2 °C</option>
+                        <option value="기온0">-1 °C</option>
+                        <option value="기온0">0 °C</option>
+                        <option value="기온1">1 °C</option>
+                        <option value="기온2">2 °C</option>
+                        <option value="기온3">3 °C</option>
+                        <option value="기온4">4 °C</option>
+                        <option value="기온5">5 °C</option>
+                        <option value="기온6">6 °C</option>
+                        <option value="기온7">7 °C</option>
+                        <option value="기온8">8 °C</option>
+                        <option value="기온9">9 °C</option>
+                        <option value="기온10">10 °C</option>
+                        <option value="기온11">11 °C</option>
+                        <option value="기온12">12 °C</option>
+                        <option value="기온13">13 °C</option>
+                        <option value="기온14">14 °C</option>
+                        <option value="기온15">15 °C</option>
+                        <option value="기온16">16 °C</option>
+                        <option value="기온17">17 °C</option>
+                        <option value="기온18">18 °C</option>
+                        <option value="기온19">19 °C</option>
+                        <option value="기온20">20 °C</option>
+                        <option value="기온21">21 °C</option>
+                        <option value="기온22">22 °C</option>
+                        <option value="기온23">23 °C</option>
+                        <option value="기온24">24 °C</option>
+                        <option value="기온25">25 °C</option>
+                        <option value="기온26">26 °C</option>
+                        <option value="기온27">27 °C</option>
+                        <option value="기온28">28 °C</option>
+                        <option value="기온29">29 °C</option>
+                        <option value="기온30">30 °C</option>
+                        <option value="기온30">31 °C</option>
+                        <option value="기온30">32 °C</option>
+                        <option value="기온30">33 °C</option>
+                        <option value="기온30">34 °C</option>
+                        <option value="기온30">35 °C</option>
+                      </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+                <!-- <div class="col-lg-6">
+                    <label for="calendar_view">등록자별</label>
+                    <div class="input-group">
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="정연"
+                                checked>정연</label>
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="다현"
+                                checked>다현</label>
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="사나"
+                                checked>사나</label>
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="나연"
+                                checked>나연</label>
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="지효"
+                                checked>지효</label>
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
+        <!-- /.filter panel -->
+    </div>
+    <!-- /.container -->
+
+    <script src="vendor/js/jquery.min.js"></script>
+    <script src="vendor/js/bootstrap.min.js"></script>
+    <script src="vendor/js/moment.min.js"></script>
+    <script src="vendor/js/fullcalendar.min.js"></script>
+    <script src="vendor/js/ko.js"></script>
+    <script src="vendor/js/select2.min.js"></script>
+    <script src="vendor/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="main.js"></script>
+    <script src="addEvent.js"></script>
+    <script src="editEvent.js"></script>
+    <script src="etcSetting.js"></script>
+
+    <script>
+  $(document).ready(function () {
+
+    $(".forecast").click(function(){
+    // $("#forecast_modal").modal('show');
+    $("#forecast_modal").fadeIn();
+
+  });
+
+  $("#forecast_content").click(function(){
+    $("#forecast_modal").fadeOut();
+  });
+
+    var Ip = "https://ipinfo.io/json";
+
+    $.getJSON(Ip, function (data) {
+      var city = data.city;
+      var region = data.region;
+      var country = data.country;
+      console.log(city);
+
+      var KEY = "&APPID=e96a3930bc0760250075575a396a67ff";
+
+      var URL =
+        "http://api.openweathermap.org/data/2.5/weather?q=" +
+        city +
+        "," +
+        country +
+        KEY;
+
+        var URL2 ="https://api.openweathermap.org/data/2.5/onecall?lat=37.5683&lon=126.9778&exclude=current,minutely,hourly,alerts&appid=e96a3930bc0760250075575a396a67ff";
+
+
+    $.getJSON(URL, function (data) {
+        var type = data.weather[0].main; //array 0 index
+        var id = data.weather[0].id; //array 0 index
+        var city = data.name;
+
+        var tempCel = Math.round(data.main.temp - 273.15);
+        var tempC = tempCel + "°C";
+        var weather = data.weather[0].description;
+        // var icon = data.weather[0].icon;
+        var tempBool = true;
+
+        //Output data to display on the page
+        $("#city").text(city);
+        // $("#state").text(region);
+        $("#temp").text(tempC); //Show Fahrenheit by Default
+        // var weatherIcon = "http://openweathermap.org/img/w/" + icon + ".png";
+        // $("#wIcon").html("<img src=" + weatherIcon + ">");
+      });
+      $.getJSON(URL2, function (data) {
+        for(var i=1;i<8;i++){
+          var ctime=data.daily[i].dt;
+          var mtemp=(data.daily[i].temp.morn-273.15).toFixed(1);
+          var dtemp=(data.daily[i].temp.day-273.15).toFixed(1);
+          var etemp=(data.daily[i].temp.eve-273.15).toFixed(1);
+          var ntemp=(data.daily[i].temp.night-273.15).toFixed(1);
+
+
+          function convertTime(t){
+            var ot=new Date(t*1000);
+            var dt=ot.getDate();
+
+            return dt+"일"
+          }
+          var currentTime= convertTime(ctime);
+          var tableHtml="<tr>"+
+                          "<td>"+currentTime+"</td>"+
+                          "<td>"+mtemp+"</td>"+
+                          "<td>"+dtemp+"</td>"+
+                          "<td>"+etemp+"</td>"+
+                          "<td>"+ntemp+"</td>"+
+                        "</tr>";
+          $('#forecast_content tbody').append(tableHtml);
+        }
+
+
+        });
+
+
+    });
+  });
+  </script>
+</body>
+
+</html>
