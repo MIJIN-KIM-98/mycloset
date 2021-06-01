@@ -1,6 +1,12 @@
 # mycloset
 fullcalendar를 이용한 옷장 어플입니다.
-<img width="1500" src="https://user-images.githubusercontent.com/80513241/117661067-dcc6cb00-b1d8-11eb-83d0-1673746c4bf9.gif">
-<img width="1500" src="https://user-images.githubusercontent.com/80513241/117661028-ccaeeb80-b1d8-11eb-9a42-a0c9df6ec326.gif">
-<img width="1500" src="https://user-images.githubusercontent.com/80513241/117661039-d3d5f980-b1d8-11eb-8681-64ec5d005cc7.gif">
-<img width="1500" src="https://user-images.githubusercontent.com/80513241/117661488-69718900-b1d9-11eb-802e-4763f6940219.gif">
+
+>mod1
+1.오늘의 날씨를 위한 추천 코디 기능 추가
+2.필터에 날씨별 select 추가
+3.일정추가모달에서 설명과 날씨 필드 추가
+
+<img width="1500" src="https://user-images.githubusercontent.com/80513241/120326384-a0901180-c323-11eb-9c2d-a7fce81271c7.gif">
+<img width="1500" src="https://user-images.githubusercontent.com/80513241/120326478-ba315900-c323-11eb-8077-b33bab999b37.gif">
+<img width="1500" src="https://user-images.githubusercontent.com/80513241/120326623-e2b95300-c323-11eb-80ee-c01837ba503d.gif">
+<img width="1500" src="https://user-images.githubusercontent.com/80513241/120326734-01b7e500-c324-11eb-9968-d3608cd659f7.gif">
