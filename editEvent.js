@@ -3,6 +3,10 @@
  * ************** */
 var editEvent = function (event, element, view) {
 
+    var urll="http://closet7.dothome.co.kr/21_05_18/"+event.description;
+    $("#image>center>img").attr("src",urll);
+
+
     $('#deleteEvent').data('id', event._id); //클릭한 이벤트 ID
 
     $('.popover.fade.top').remove();
@@ -28,6 +32,8 @@ var editEvent = function (event, element, view) {
     editTitle.val(event.title);
     editStart.val(event.start.format('YYYY-MM-DD HH:mm'));
     editType.val(event.type);
+    editMemo.val(event.memo);
+    editWeather.val(event.weather);
     // editDesc.val(event.description);
     editColor.val(event.backgroundColor).css('color', event.backgroundColor);
 
@@ -75,13 +81,9 @@ var editEvent = function (event, element, view) {
         event.type = editType.val();
         event.backgroundColor = editColor.val();
         event.description = editDesc.prop('files')[0];
+        event.memo=editMemo.val();
+        event.weather=editWeather.val();
 
-        // var urll="http://closet7.dothome.co.kr/21_05_04/"+event.description;
-        // console.log("edit에서"+urll);
-        // // element.find("div.image").prepend("<center><img src='"+urll+"'> </center>");
-        // $("#image>center>img").attr("src",urll);
-
-////////////////////////////////////////////////////////////
         var eventData = {
             _id: event._id,
             title: editTitle.val(),
@@ -92,50 +94,36 @@ var editEvent = function (event, element, view) {
             username: '사나',
             backgroundColor: editColor.val(),
             textColor: '#ffffff',
-            allDay: false
+            allDay: false,
+            memo: editMemo.val(),
+            weather:editWeather.val()
         };
 
-          var title = editTitle.val();
-          var start = editStart.val();
-          var end = editEnd.val();
-          var description = $( '#edit-desc' ).prop('files')[0];
-          var type= editType.val();
-          var username= '사나';
-          var backgroundColor= editColor.val();
-          var textColor= '#ffffff';
-          var allDay= false;
-
-          var form=document.getElementById('fileinfo');
-          var form_data = new FormData(form);
-          form_data.append('id', event._id);
-/////////////////////////////////////////////////////////////////
+        var form=document.getElementById('fileinfo');
+        var form_data = new FormData(form);
+        form_data.append('edit_id',event._id);
 
         $("#calendar").fullCalendar('updateEvent', event);
 
         //일정 업데이트
         $.ajax({
           type: "post",
-          url: "updateEvent.php",
-          ////////////////////////
           dataType: 'script',
           // cache: false,
           contentType: false,
           processData: false,
-          //////////////////////
+          url: "updateEvent.php",
           data: form_data,
             success: function (response) {
               if (response) {
                   $("#calendar").fullCalendar('updateEvent', event);
                   $('#calendar').fullCalendar('refetchEvents');
                   alert('일정이 수정되었습니다.');
-                  // $('#calendar').fullCalendar('refetchEvents');
-
               }
             }
         });
 
     });
-
 
 
 // 삭제버튼
@@ -151,13 +139,17 @@ $('#deleteEvent').on('click', function () {
           url: "deleteEvent.php",
           data: { "eventID": eventID },
         success: function (response) {
-                  $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
-                  $('#calendar').fullCalendar('refetchEvents');
-                  alert('일정이 삭제되었습니다.');
-                  // $('#calendar').fullCalendar('refetchEvents');
+          if(response){
+
+            $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
+            $('#calendar').fullCalendar('refetchEvents');
+            alert('일정이 삭제되었습니다.');
+
+
+          }
+
         }
     });
 
 });
-
 };

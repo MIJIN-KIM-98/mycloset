@@ -21,7 +21,7 @@ class DBController
     {
         try {
             $dbconn = mysqli_connect($this->host, $this->userid, $this->password, $this->database);
-            mysqli_set_charset($dbconn, "utf8"); // DB설정이 잘못되어 euc-kr 로 되어 있으면 문제가 됨
+            mysqli_set_charset($dbconn, "utf8");
             if (mysqli_connect_errno()) {
                 printf("Connect failed: %s\n", mysqli_connect_error());
                 exit();
@@ -42,7 +42,6 @@ class DBController
                 return false;
             }
 
-            // mysqli_free_result($result);
         } catch (Exception $e) {
             printf("db failed: %s\n", $e);
         }

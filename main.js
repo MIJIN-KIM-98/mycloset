@@ -70,10 +70,8 @@ var calendar = $('#calendar').fullCalendar({
                                },
 
 
-  eventRender: function (event, element, view)
-
-  {
-    var urll="http://closet7.dothome.co.kr/21_05_04/"+event.description;
+  eventRender: function (event, element, view) {
+    var urll="http://closet7.dothome.co.kr/21_05_18/"+event.description;
     //일정에 hover시 요약
     element.popover({
       title: $('<div />', {
@@ -87,6 +85,7 @@ var calendar = $('#calendar').fullCalendar({
           class: 'popoverInfoCalendar'
         })
         // .append('<p><strong>등록자:</strong> ' + event.username + '</p>')
+        .append('<p><strong>날씨:</strong> ' + event.weather + '</p>')
         .append('<p><strong>구분:</strong> ' + event.type + '</p>')
         .append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
         .append('<div class="popoverDescCalendar"><strong>이미지:</strong>' + event.description+ '</div> '),
@@ -202,9 +201,15 @@ var calendar = $('#calendar').fullCalendar({
       start: newDates.startDate,
       end: newDates.endDate,
       backgroundColor: event.backgroundColor,
-      textColor: '#ffffff',
-      allDay: event.allDay
+      textColor: '#000000',
+      allDay: event.allDay,
+      type: event.type,
+      username:event.username,
+      memo:event.memo,
+      weather:event.weather
   };
+
+
 
     //드롭한 일정 업데이트
     $.ajax({
@@ -308,12 +313,14 @@ function filtering(event) {
   // var show_username = true;
   var show_temp =true;
   var show_type = true;
+  var show_weather =true;
 
   // var username = $('input:checkbox.filter:checked').map(function () {
   //   return $(this).val();
   // }).get();
   var temps = $('#temp_filter').val();
   var types = $('#type_filter').val();
+  var weathers = $('#weather_filter').val();
 
   // show_username = username.indexOf(event.username) >= 0;
 
@@ -333,7 +340,15 @@ function filtering(event) {
     }
   }
 
-  return show_temp && show_type;
+  if (weathers && weathers.length > 0) {
+    if (weathers[0] == "all") {
+      show_weather = true;
+    } else {
+      show_weather = weathers.indexOf(event.weather) >= 0;
+    }
+  }
+
+  return show_temp && show_type &&show_weather;
 }
 
 function calDateWhenResize(event) {

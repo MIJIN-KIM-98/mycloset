@@ -39,9 +39,10 @@
 
         <div id="wrapper">
           <div class="row">
-           지금 <span id="city"></span>의 기온은 <span id="temp"></span> 입니다.
-           <button type="button" onclick="location.href='https://www.kweather.co.kr/kma/kma_past.html?' ">지난 날씨보기</button>
-           <button class="forecast">날씨 7일간 예보보기</button>
+             지금 <B><span id="city"></span></B>의 기온은 <B><span id="temp"></span></B> 입니다. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+           <button type="button" id="bnt" onclick="location.href='https://www.kweather.co.kr/kma/kma_past.html?' ">지난 날씨보기</button>
+           <button class="forecast" id="bnt">날씨 7일간 예보보기</button>
            <div class="modal" id="forecast_modal">
                <div class="modal_content" id="forecast_content" title="클릭하면 창이 닫힙니다.">
                     <table align="center">
@@ -60,6 +61,32 @@
                     </table>
                </div>
            </div>
+
+           <button class="recommendation" id="bnt">오늘의 날씨를 위한 추천 코디!</button>
+           <div class="modal" id="recommendation_modal">
+               <div class="modal_content" id="recommendation_content" title="클릭하면 창이 닫힙니다.">
+                    <!-- <table align="center">
+                      <thead>
+                        <tr>
+                          <td><B>_id</B></td>
+                          <td><B>temp</B></td>
+                          <td><B>이미지</B></td>
+                          <td><B>시작</B></td>
+                          <td><B>배경색</B></td>
+                          <td><B>글자색</B></td>
+                          <td><B>allday</B></td>
+                          <td><B>구분</B></td>
+                          <td><B>날씨</B></td>
+                          <td><B>메모</B></td>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                    </table> -->
+               </div>
+           </div>
+
 
 
           </div>
@@ -99,11 +126,46 @@
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-title">기온</label>
                                 <select class="inputModal" name="edit-title" id="edit-title">
-                                  <option value="기온0">-5 °C</option>
-                                  <option value="기온0">-4 °C</option>
-                                  <option value="기온0">-3 °C</option>
-                                  <option value="기온0">-2 °C</option>
-                                  <option value="기온0">-1 °C</option>
+                                  <option value="기온-40">-40 °C</option>
+                                  <option value="기온-39">-39 °C</option>
+                                  <option value="기온-38">-38 °C</option>
+                                  <option value="기온-37">-37 °C</option>
+                                  <option value="기온-36">-36 °C</option>
+                                  <option value="기온-35">-35 °C</option>
+                                  <option value="기온-34">-34 °C</option>
+                                  <option value="기온-33">-33 °C</option>
+                                  <option value="기온-32">-32 °C</option>
+                                  <option value="기온-31">-31 °C</option>
+                                  <option value="기온-30">-30 °C</option>
+                                  <option value="기온-29">-29 °C</option>
+                                  <option value="기온-28">-28 °C</option>
+                                  <option value="기온-27">-27 °C</option>
+                                  <option value="기온-26">-26 °C</option>
+                                  <option value="기온-25">-25 °C</option>
+                                  <option value="기온-24">-24 °C</option>
+                                  <option value="기온-23">-23 °C</option>
+                                  <option value="기온-22">-22 °C</option>
+                                  <option value="기온-21">-21 °C</option>
+                                  <option value="기온-20">-20 °C</option>
+                                  <option value="기온-19">-19 °C</option>
+                                  <option value="기온-18">-18 °C</option>
+                                  <option value="기온-17">-17 °C</option>
+                                  <option value="기온-16">-16 °C</option>
+                                  <option value="기온-15">-15 °C</option>
+                                  <option value="기온-14">-14 °C</option>
+                                  <option value="기온-13">-13 °C</option>
+                                  <option value="기온-12">-12 °C</option>
+                                  <option value="기온-11">-11 °C</option>
+                                  <option value="기온-10">-10 °C</option>
+                                  <option value="기온-9">-9 °C</option>
+                                  <option value="기온-8">-8 °C</option>
+                                  <option value="기온-7">-7 °C</option>
+                                  <option value="기온-6">-6 °C</option>
+                                  <option value="기온-5">-5 °C</option>
+                                  <option value="기온-4">-4 °C</option>
+                                  <option value="기온-3">-3 °C</option>
+                                  <option value="기온-2">-2 °C</option>
+                                  <option value="기온-1">-1 °C</option>
                                   <option value="기온0">0 °C</option>
                                   <option value="기온1">1 °C</option>
                                   <option value="기온2">2 °C</option>
@@ -135,11 +197,28 @@
                                   <option value="기온28">28 °C</option>
                                   <option value="기온29">29 °C</option>
                                   <option value="기온30">30 °C</option>
-                                  <option value="기온30">31 °C</option>
-                                  <option value="기온30">32 °C</option>
-                                  <option value="기온30">33 °C</option>
-                                  <option value="기온30">34 °C</option>
-                                  <option value="기온30">35 °C</option>
+                                  <option value="기온31">31 °C</option>
+                                  <option value="기온32">32 °C</option>
+                                  <option value="기온33">33 °C</option>
+                                  <option value="기온34">34 °C</option>
+                                  <option value="기온35">35 °C</option>
+                                  <option value="기온36">36 °C</option>
+                                  <option value="기온37">37 °C</option>
+                                  <option value="기온38">38 °C</option>
+                                  <option value="기온39">39 °C</option>
+                                  <option value="기온40">40 °C</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label class="col-xs-4" for="edit-weather">날씨</label>
+                                <select class="inputModal" name="edit-weather" id="edit-weather">
+                                  <option value="맑음">맑음</option>
+                                  <option value="흐림">흐림</option>
+                                  <option value="비">비</option>
+                                  <option value="눈">눈</option>
                                 </select>
                             </div>
                         </div>
@@ -188,12 +267,20 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-desc">설명</label>
+                                <label class="col-xs-4" for="edit-desc">이미지</label>
                                 <!-- <textarea rows="4" cols="50" class="inputModal" name="edit-desc"
                                     id="edit-desc"></textarea> -->
                                     <input type="file" name="edit-desc" class="inputModal" value="" id="edit-desc">
                             </div>
                         </div>
+                        <div class="row">
+                           <div class="col-xs-12">
+                               <label class="col-xs-4" for="edit-memo">설명</label>
+                               <textarea rows="4" cols="50" class="inputModal" name="edit-memo"
+                                   id="edit-memo"></textarea>
+                           </div>
+                       </div>
+
                     </div>
                     <div class="modal-footer modalBtnContainer-addEvent">
                         <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
@@ -231,14 +318,62 @@
                 </div>
 
                 <div class="col-lg-6">
+                    <label for="calendar_view">날씨별</label>
+                    <div class="input-group">
+                        <select class="filter" id="weather_filter" multiple="multiple">
+                            <option value="맑음">맑음</option>
+                            <option value="흐림">흐림</option>
+                            <option value="비">비</option>
+                            <option value="눈">눈</option>
+                            <!-- <option value="카테고리4">카테고리4</option> -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
                     <label for="calendar_view">기온별</label>
                     <div class="input-group">
                       <select class="filter" id="temp_filter" multiple="multiple">
-                        <option value="기온0">-5 °C</option>
-                        <option value="기온0">-4 °C</option>
-                        <option value="기온0">-3 °C</option>
-                        <option value="기온0">-2 °C</option>
-                        <option value="기온0">-1 °C</option>
+                        <option value="기온-40">-40 °C</option>
+                        <option value="기온-39">-39 °C</option>
+                        <option value="기온-38">-38 °C</option>
+                        <option value="기온-37">-37 °C</option>
+                        <option value="기온-36">-36 °C</option>
+                        <option value="기온-35">-35 °C</option>
+                        <option value="기온-34">-34 °C</option>
+                        <option value="기온-33">-33 °C</option>
+                        <option value="기온-32">-32 °C</option>
+                        <option value="기온-31">-31 °C</option>
+                        <option value="기온-30">-30 °C</option>
+                        <option value="기온-29">-29 °C</option>
+                        <option value="기온-28">-28 °C</option>
+                        <option value="기온-27">-27 °C</option>
+                        <option value="기온-26">-26 °C</option>
+                        <option value="기온-25">-25 °C</option>
+                        <option value="기온-24">-24 °C</option>
+                        <option value="기온-23">-23 °C</option>
+                        <option value="기온-22">-22 °C</option>
+                        <option value="기온-21">-21 °C</option>
+                        <option value="기온-20">-20 °C</option>
+                        <option value="기온-19">-19 °C</option>
+                        <option value="기온-18">-18 °C</option>
+                        <option value="기온-17">-17 °C</option>
+                        <option value="기온-16">-16 °C</option>
+                        <option value="기온-15">-15 °C</option>
+                        <option value="기온-14">-14 °C</option>
+                        <option value="기온-13">-13 °C</option>
+                        <option value="기온-12">-12 °C</option>
+                        <option value="기온-11">-11 °C</option>
+                        <option value="기온-10">-10 °C</option>
+                        <option value="기온-9">-9 °C</option>
+                        <option value="기온-8">-8 °C</option>
+                        <option value="기온-7">-7 °C</option>
+                        <option value="기온-6">-6 °C</option>
+                        <option value="기온-5">-5 °C</option>
+                        <option value="기온-4">-4 °C</option>
+                        <option value="기온-3">-3 °C</option>
+                        <option value="기온-2">-2 °C</option>
+                        <option value="기온-1">-1 °C</option>
                         <option value="기온0">0 °C</option>
                         <option value="기온1">1 °C</option>
                         <option value="기온2">2 °C</option>
@@ -270,15 +405,19 @@
                         <option value="기온28">28 °C</option>
                         <option value="기온29">29 °C</option>
                         <option value="기온30">30 °C</option>
-                        <option value="기온30">31 °C</option>
-                        <option value="기온30">32 °C</option>
-                        <option value="기온30">33 °C</option>
-                        <option value="기온30">34 °C</option>
-                        <option value="기온30">35 °C</option>
+                        <option value="기온31">31 °C</option>
+                        <option value="기온32">32 °C</option>
+                        <option value="기온33">33 °C</option>
+                        <option value="기온34">34 °C</option>
+                        <option value="기온35">35 °C</option>
+                        <option value="기온36">36 °C</option>
+                        <option value="기온37">37 °C</option>
+                        <option value="기온38">38 °C</option>
+                        <option value="기온39">39 °C</option>
+                        <option value="기온40">40 °C</option>
                       </select>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -319,6 +458,9 @@
     <script>
   $(document).ready(function () {
 
+
+    //예보 모달창 열고 닫기
+
     $(".forecast").click(function(){
     // $("#forecast_modal").modal('show');
     $("#forecast_modal").fadeIn();
@@ -328,6 +470,21 @@
   $("#forecast_content").click(function(){
     $("#forecast_modal").fadeOut();
   });
+
+  //추천코디 모달창 열고 닫기
+
+
+//   $(".recommendation").click(function(){
+//   // $("#forecast_modal").modal('show');
+//   $("#recommendation_modal").fadeIn();
+// });
+
+
+
+
+$("#recommendation_content").click(function(){
+  $("#recommendation_modal").fadeOut();
+});
 
     var Ip = "https://ipinfo.io/json";
 
@@ -366,7 +523,31 @@
         $("#temp").text(tempC); //Show Fahrenheit by Default
         // var weatherIcon = "http://openweathermap.org/img/w/" + icon + ".png";
         // $("#wIcon").html("<img src=" + weatherIcon + ">");
+        $(".recommendation").click(function(){
+        // $("#forecast_modal").modal('show');
+        $("#recommendation_modal").fadeIn();
+
+        $.ajax({
+          type: "post",
+          url: "events2.php",
+          data: {"temp":tempCel},
+          success: function (response) {
+            if(!response)
+              {
+                return;
+              }
+              $("#recommendation_content").html(response);
+          }
+          ////success
+        });
+
       });
+
+
+      });
+
+      /////URL1끝
+
       $.getJSON(URL2, function (data) {
         for(var i=1;i<8;i++){
           var ctime=data.daily[i].dt;
@@ -393,11 +574,11 @@
           $('#forecast_content tbody').append(tableHtml);
         }
 
-
         });
 
-
     });
+
+
   });
   </script>
 </body>

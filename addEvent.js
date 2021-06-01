@@ -9,6 +9,9 @@ var editType = $('#edit-type');
 var editColor = $('#edit-color');
 var editDesc = $('#edit-desc');
 
+var editWeather=$('#edit-weather');
+var editMemo=$('#edit-memo');
+
 var addBtnContainer = $('.modalBtnContainer-addEvent');
 var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 
@@ -26,6 +29,9 @@ var newEvent = function (start, end, eventType) {
     editStart.val(start);
     editEnd.val(end);
     // editDesc.val('');
+    editTitle.val();
+    editMemo.val();
+    editWeather.val();
 
     addBtnContainer.show();
     modifyBtnContainer.hide();
@@ -45,7 +51,9 @@ var newEvent = function (start, end, eventType) {
             username: '사나',
             backgroundColor: editColor.val(),
             textColor: '#ffffff',
-            allDay: false
+            allDay: false,
+            weather: editWeather.val(),
+            memo:editMemo.val()
         };
 
           var title = editTitle.val();
@@ -57,6 +65,8 @@ var newEvent = function (start, end, eventType) {
           var backgroundColor= editColor.val();
           var textColor= '#ffffff';
           var allDay= false;
+          var weather=editWeather.val();
+          var memo=editMemo.val();
 
           var form=document.getElementById('fileinfo');
           var form_data = new FormData(form);
@@ -103,11 +113,11 @@ var newEvent = function (start, end, eventType) {
           url: "addEvent.php",
           data: form_data,
             success: function (response) {
-              if(response){
+              if(response==1){
               $('#calendar').fullCalendar('removeEvents');
               $('#calendar').fullCalendar('refetchEvents');
                 alert('일정이 추가 되었습니다.');
-              // $('#calendar').fullCalendar('refetchEvents');
+              $('#calendar').fullCalendar('refetchEvents');
               }else if(response==0){
                 alert("그림이 파일로 이동하지 못했다.");
               }

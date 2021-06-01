@@ -27,6 +27,28 @@ body {
 }
 
 
+#recommendation_modal{
+  position:absolute; width:100%; height:100%; background: rgba(0,0,0,0.8); top:0; left:0; display:none; overflow-y: initial !important
+}
+
+#recommendation_content{
+  width:1000px; height:700px;
+  background:#fff; border-radius:10px;
+  position:static; top:50%; left:50%;
+  margin-top:100px; margin-left:500px;
+  text-align:center;
+  /* box-sizing:border-box; padding:74px 0; */
+  line-height:23px; cursor:pointer;
+  overflow-y: auto;
+}
+
+#recommendation_content table{
+  border-spacing: 20px;
+  border-collapse: separate;
+}
+
+
+
 .popoverTitleCalendar {
   width: 100%;
   height: 100%;
@@ -318,4 +340,41 @@ select.filter {
 #add-color,
 #edit-color {
   color: #d25565;
+}
+
+
+.row  button{
+  text-align:center !important;
+  background:#A9D0F5 !important;
+  color:#fff !important;
+  border:none !important;
+  position:relative !important;
+  padding:0 2em !important;
+  cursor:pointer !important;
+  transition:800ms ease all !important;
+  outline:none !important;
+}
+.row  button:hover{
+  background:#fff !important;
+  color:#A9D0F5 !important;
+}
+.row  button:before, button:after{
+  content:'' !important;
+  position:absolute !important;
+  top:0 !important;
+  right:0 !important;
+  height:2px !important;
+  width:0 !important;
+  background: #A9D0F5 !important;
+  transition:400ms ease all !important;
+}
+.row  button:after{
+  right:inherit !important;
+  top:inherit !important;
+  left:0 !important;
+  bottom:0 !important;
+}
+.row  button:hover:before, button:hover:after{
+  width:100% !important;
+  transition:800ms ease all !important;
 }
