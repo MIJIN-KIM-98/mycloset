@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        #box1{
+        text-align: center;
+        vertical-align: middle;
+      }
+        input {
+			padding: 10px 20px;
+			margin: 20px 0;
+			box-sizing: border-box;
+		}
+    img{
+      margin-top: 150px;
+      margin-left: 710px;
+
+    }
+    </style>
+
+    <script src="vendor/js/jquery.min.js"></script>
+
+
+    <script type="text/javascript">
+        //jQuery 문법
+        $(document).ready(function(){
+            $('#box2').submit(function(e){
+                e.preventDefault();
+                //Ajax 문법
+                $.ajax({
+                    type : 'POST',
+                    url : 'joinProc.php',
+                    data : $(this).serialize(),
+                    success : function(result){
+                        if(result=="IDcheck"){
+                            alert("입력하신 아이디가 이미 존재 합니다. 다른 아이디로 입력하세요.");
+                        }else if(result=="Success save"){
+                            alert("회원 가입을 축하합니다. 로그인을 해주세요.");
+                            location.replace('http://closet7.dothome.co.kr/21_06_03/index.php')
+                        }else if(result=="Fail save"){
+                            alert("회원 가입에 실패 했습니다. 다시 시도해 주세요.");
+                        }else if(result=="Empty ID"){
+                            alert("아이디를 입력하지 않았습니다. 아이디를 입력하세요.");
+                        }else if(result=="Empty PWD"){
+                            alert("비밀번호를 입력하지 않았습니다. 비밀번호를 입력하세요.");
+                        }else if(result=="Empty NAME"){
+                            alert("이름을 입력하지 않았습니다. 이름을 입력하세요.");
+                        }else if(result=="Empty EMAIL"){
+                            alert("이메일을 입력하지 않았습니다. 이메일을 입력하세요.");
+                        }
+                    },
+                    error : function(xtr,status,error){
+                        alert(xtr +":"+status+":"+error);
+                    }
+                });
+            });
+        });
+        </script>
+  </head>
+  <body>
+    <img src="./image/image.jpg" alt="">
+    <div id = "box1">
+        <form id = "box2" method="POST">
+
+                <table align="center">
+                <tr>
+                    <td>아이디</td>
+                    <td><input type ="text" name = "UID" placeholder="Enter Your Email"></td>
+                </tr>
+                <tr>
+                    <td>비밀번호</td>
+                    <td><input type ="text" name = "UPWD" placeholder="Enter Your Password"></td>
+                </tr>
+                <tr>
+                    <td>이름</td>
+                    <td><input type ="text" name = "UNAME" placeholder="Enter Your Name"></td>
+                </tr>
+                <tr>
+                    <td>이메일</td>
+                    <td><input type ="text" name = "UMail" placeholder="Enter Your Email"></td>
+                </tr>
+                </table>
+                <input type ="submit" value="가입하기">
+                <input type ="button" value="취소하기" onclick="location.href='index.php'">
+        </form>
+    </div>
+  </body>
+</html>

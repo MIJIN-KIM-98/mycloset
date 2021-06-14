@@ -1,5 +1,6 @@
     <?php
-    if (isset($_POST['temp'])) {
+    session_start();
+    if (isset($_POST['temp'])&&isset($_POST['weather'])) {
       $host = 'localhost';
       $db = 'closet7';
       $userid = 'closet7';
@@ -8,18 +9,23 @@
       if(mysqli_connect_errno($conn)){
         echo "데이터베이 연결 실패: ".mysqli_connect_errno();}
 
-        // require_once 'dbController.php';
         $temp = $_POST['temp'];
-
-        // $dbController = new dbController();
-        // $test = "SELECT * FROM event";
-        // $datas = $dbController->sql_select("SELECT * FROM event");
+        $weather =$_POST['weather'];
 
 
-        // if (!empty($datas)) {
-            // echo json_encode($datas);
+        $weath="";
 
-            $rest=mysqli_query($conn,"select * from event where title LIKE '%".$temp."%' AND type='적당함' ");
+        if($weather=="Clear"){
+            $weath="맑음";
+        }else if($weather=="Snow"){
+            $weath="눈";
+        }else if($weather=="Rain"||$weather=="Thunderstorm"||$weather=="Drizzle"){
+            $weath="비";
+        }else{
+            $weath="흐림";
+        }
+
+            $rest=mysqli_query($conn,"select * from event where title LIKE '%".$temp."%' AND type='적당함' AND user_id='{$_SESSION['user_id']}' AND weather='".$weath."' ORDER BY start desc ");
 
             $output="";
             $output .="
@@ -35,14 +41,7 @@
               </tr>
             ";
 
-            // $row=mysqli_fetch_array($rest);
-            // if($row==NULL){
-            //   echo "오늘 날씨에 해당하는 옷차림을 찾을 수 없습니다ㅜㅜ 더 많은 옷코디를 저장해보세요";
-            //   mysqli_close($conn);
-            // }else{
-
-            //
-            $urll="http://closet7.dothome.co.kr/21_05_18/";
+            $urll="http://closet7.dothome.co.kr/21_06_03/";
 
             while($row=mysqli_fetch_array($rest)){
               $output .="
@@ -59,8 +58,4 @@
             }
             echo $output;
             mysqli_close($conn);
-          // }
-        // }else{
-        //   echo "잘못되었어 이건!";
-        // }
     }

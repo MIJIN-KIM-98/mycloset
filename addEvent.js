@@ -1,5 +1,4 @@
 var eventModal = $('#eventModal');
-
 var modalTitle = $('.modal-title');
 var editAllDay = $('#edit-allDay');
 var editTitle = $('#edit-title');
@@ -8,7 +7,6 @@ var editEnd = $('#edit-end');
 var editType = $('#edit-type');
 var editColor = $('#edit-color');
 var editDesc = $('#edit-desc');
-
 var editWeather=$('#edit-weather');
 var editMemo=$('#edit-memo');
 
@@ -23,12 +21,12 @@ var newEvent = function (start, end, eventType) {
 
     $("#contextMenu").hide(); //메뉴 숨김
 
+   // ADD_MODAL
     modalTitle.html('새로운 일정');
     editType.val(eventType).prop('selected', true);
     editTitle.val('');
     editStart.val(start);
     editEnd.val(end);
-    // editDesc.val('');
     editTitle.val();
     editMemo.val();
     editWeather.val();
@@ -71,11 +69,6 @@ var newEvent = function (start, end, eventType) {
           var form=document.getElementById('fileinfo');
           var form_data = new FormData(form);
 
-          // for (var value of form_data.keys()) {
-          //      console.log(value);
-          //   }
-
-
         if (eventData.start > eventData.end) {
             alert('끝나는 날짜가 앞설 수 없습니다.');
             return false;
@@ -107,7 +100,6 @@ var newEvent = function (start, end, eventType) {
         $.ajax({
           type: "post",
           dataType: 'script',
-          // cache: false,
           contentType: false,
           processData: false,
           url: "addEvent.php",

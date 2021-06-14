@@ -3,7 +3,7 @@
  * ************** */
 var editEvent = function (event, element, view) {
 
-    var urll="http://closet7.dothome.co.kr/21_05_18/"+event.description;
+    var urll="http://closet7.dothome.co.kr/21_06_03/"+event.description; //event.description : files/파일이름.파일확장자
     $("#image>center>img").attr("src",urll);
 
 
@@ -28,13 +28,13 @@ var editEvent = function (event, element, view) {
         editEnd.val(event.end.format('YYYY-MM-DD HH:mm'));
     }
 
+    // MODIFY_MODAL
     modalTitle.html('일정 수정');
     editTitle.val(event.title);
     editStart.val(event.start.format('YYYY-MM-DD HH:mm'));
     editType.val(event.type);
     editMemo.val(event.memo);
     editWeather.val(event.weather);
-    // editDesc.val(event.description);
     editColor.val(event.backgroundColor).css('color', event.backgroundColor);
 
     addBtnContainer.hide();
@@ -99,6 +99,7 @@ var editEvent = function (event, element, view) {
             weather:editWeather.val()
         };
 
+        // index.html 에서 form태그 안의 각 필드와 값을 나타내는 키/값 쌍들로 집합을 만들어줌
         var form=document.getElementById('fileinfo');
         var form_data = new FormData(form);
         form_data.append('edit_id',event._id);
@@ -109,7 +110,6 @@ var editEvent = function (event, element, view) {
         $.ajax({
           type: "post",
           dataType: 'script',
-          // cache: false,
           contentType: false,
           processData: false,
           url: "updateEvent.php",

@@ -71,7 +71,7 @@ var calendar = $('#calendar').fullCalendar({
 
 
   eventRender: function (event, element, view) {
-    var urll="http://closet7.dothome.co.kr/21_05_18/"+event.description;
+    var urll="http://closet7.dothome.co.kr/21_06_03/"+event.description;
     //일정에 hover시 요약
     element.popover({
       title: $('<div />', {
@@ -84,7 +84,6 @@ var calendar = $('#calendar').fullCalendar({
       content: $('<div />', {
           class: 'popoverInfoCalendar'
         })
-        // .append('<p><strong>등록자:</strong> ' + event.username + '</p>')
         .append('<p><strong>날씨:</strong> ' + event.weather + '</p>')
         .append('<p><strong>구분:</strong> ' + event.type + '</p>')
         .append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
@@ -102,9 +101,6 @@ var calendar = $('#calendar').fullCalendar({
 
     if(event.description){
       element.find("div.fc-content").prepend("<center><img src='"+urll+"' height=70 width=140> </center>");
-      // element.find('.fc-event-inner').css("background","url(urll) no-repeat right");
-      // element.find('.fc-event-inner').css("background-size","contain");
-      // element.find('.fc-event-inner').css("opacity","0.75");
     }
     return filtering(event);
 
@@ -126,11 +122,6 @@ var calendar = $('#calendar').fullCalendar({
           }
           var parse=JSON.parse(response);
           var fixedDate = parse.map(function (array) {
-            // if (array.allDay=="1" && array.start !== array.end) {
-            //   // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
-            //   array.end = moment(array.end).add(1, 'days');
-            // }
-            // array.description="http://closet7.dothome.co.kr/image_check/".array.description;
             array._id=Number(array._id);
             if(array.allDay=="0")
             {
@@ -164,8 +155,6 @@ var calendar = $('#calendar').fullCalendar({
       type: "get",
       url: "",
       data: {
-        //id: event._id,
-        //....
       },
       success: function (response) {
         alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
@@ -310,19 +299,13 @@ function getDisplayEventDate(event) {
 }
 
 function filtering(event) {
-  // var show_username = true;
   var show_temp =true;
   var show_type = true;
   var show_weather =true;
 
-  // var username = $('input:checkbox.filter:checked').map(function () {
-  //   return $(this).val();
-  // }).get();
   var temps = $('#temp_filter').val();
   var types = $('#type_filter').val();
   var weathers = $('#weather_filter').val();
-
-  // show_username = username.indexOf(event.username) >= 0;
 
   if (temps && temps.length > 0) {
     if (temps[0] == "all") {
